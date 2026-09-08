@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -64,18 +65,19 @@ const Home = () => {
     let cancelled = false;
 
     // -------------------------------------------------------
-    // Start Hero ONLY when Navbar says it is finished
+    // Navbar tells the Hero when its full intro is complete
     // -------------------------------------------------------
 
     const handleNavbarIntroComplete = () => {
       if (cancelled) return;
 
-      // Small breathing room between Navbar and Hero
-      setTimeout(() => {
+      // Start immediately.
+      // No artificial delay here.
+      requestAnimationFrame(() => {
         if (!cancelled) {
           setHeroReady(true);
         }
-      }, 80);
+      });
     };
 
     window.addEventListener(
@@ -84,7 +86,8 @@ const Home = () => {
     );
 
     // -------------------------------------------------------
-    // If Navbar already completed before Home mounted
+    // Fallback for cases where Navbar already completed
+    // before this listener was attached.
     // -------------------------------------------------------
 
     const navbarAlreadyFinished =
@@ -93,11 +96,11 @@ const Home = () => {
       ) === 'true';
 
     if (navbarAlreadyFinished) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         if (!cancelled) {
           setHeroReady(true);
         }
-      }, 80);
+      });
     }
 
     return () => {
@@ -114,7 +117,7 @@ const Home = () => {
   // HERO GSAP ANIMATION
   // =========================================================
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!heroReady || !heroRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -291,9 +294,9 @@ const Home = () => {
       // =======================================================
       // 0.32 — HEADLINE
       //
-      // Engineering
-      // energy
-      // systems.
+      // Engineering the
+      // Power
+      // of Sunlight.
       //
       // LEFT → RIGHT REVEAL
       // =======================================================
@@ -303,7 +306,6 @@ const Home = () => {
           tl.to(
             line,
             {
-              delay: 1.8,
               duration: reduceMotion
                 ? 0.2
                 : 0.65,
@@ -319,7 +321,7 @@ const Home = () => {
       );
 
       // =======================================================
-      // 0.92 — SPECIALIZATIONS
+      // 0.92 — SPECIALIZATION DOTS
       // =======================================================
 
       specializationDotsRef.current.forEach(
@@ -327,7 +329,6 @@ const Home = () => {
           tl.to(
             dot,
             {
-              delay: 1.8,
               duration: reduceMotion
                 ? 0.1
                 : 0.3,
@@ -342,12 +343,15 @@ const Home = () => {
         }
       );
 
+      // =======================================================
+      // 0.95 — SPECIALIZATION TEXT
+      // =======================================================
+
       specializationRef.current.forEach(
         (item, index) => {
           tl.to(
             item,
             {
-              delay: 1.8,
               duration: reduceMotion
                 ? 0.15
                 : 0.4,
@@ -369,7 +373,6 @@ const Home = () => {
       tl.to(
         descriptionRef.current,
         {
-          delay: 1.8,
           duration: reduceMotion
             ? 0.2
             : 0.65,
@@ -390,7 +393,6 @@ const Home = () => {
       tl.to(
         ctaRef.current,
         {
-          delay: 1.8,
           duration: reduceMotion
             ? 0.2
             : 0.55,
@@ -461,7 +463,7 @@ const Home = () => {
       );
 
       // =======================================================
-      // PRIMARY BUTTON IDLE SIGNAL
+      // 2.33 — PRIMARY BUTTON IDLE SIGNAL
       // =======================================================
 
       if (
@@ -674,6 +676,9 @@ const Home = () => {
               max-w-3xl
               lg:max-w-4xl
             "
+            style={{
+              opacity: heroReady ? 1 : 0,
+            }}
           >
 
             {/* =================================================
@@ -787,7 +792,7 @@ const Home = () => {
 
               </div>
 
-              {/* energy */}
+              {/* Power */}
 
               <div className="overflow-hidden">
 
@@ -803,7 +808,7 @@ const Home = () => {
 
               </div>
 
-              {/* systems. */}
+              {/* of Sunlight */}
 
               <div className="overflow-hidden">
 
@@ -1500,15 +1505,17 @@ const Home = () => {
 
       <Skills />
 
+      {/* =====================================================
+          07 — ACHIEVEMENTS
+      ===================================================== */}
+
       <Achievements />
 
       {/* =====================================================
-          07 — CONTACT
+          08 — CONTACT
       ===================================================== */}
 
       <Contact />
-
-      
 
     </div>
   );
