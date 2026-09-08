@@ -1,0 +1,87 @@
+import pvPhoto from '../assets/land.png';
+import pumpingPhoto from '../assets/Sunset Agricultural Scene with Solar Panels.png';
+import thermalPhoto from '../assets/Sunset Serenity Over Rolling Hills.png';
+
+export const projects = [
+  {
+    number: '01',
+    slug: 'pv-systems',
+    category: 'PV SYSTEM DESIGN PORTFOLIO',
+    title: 'PV Systems',
+    highlight: 'From 17 kW to 2.14 MW.',
+    description:
+      'A portfolio of photovoltaic engineering work across residential, commercial, pumping, utility-scale, on-grid, off-grid and hybrid applications. The work spans system design, electrical calculations, engineering documentation and technical proposals.',
+    capacity: '17 kW — 2.14 MW',
+    role: 'PV Design / Technical Office',
+    tools: ['PVsyst', 'AutoCAD', 'SketchUp', 'Excel'],
+    scope: ['PV array sizing', 'String configuration', 'MPPT allocation', 'Inverter selection', 'AC/DC design', 'Cable sizing', 'SLDs', 'General layouts', 'String layouts', 'Concrete / pile layouts', 'Technical proposals'],
+    evidence: 'Array and string sizing, inverter and MPPT allocation, AC/DC design, layouts and technical proposals.',
+    type: 'pv',
+    photo: pvPhoto,
+  },
+  {
+    number: '02',
+    slug: 'hybrid-pv-bess',
+    category: 'HYBRID ENERGY SYSTEMS',
+    title: 'Hybrid PV +',
+    highlight: 'BESS Systems.',
+    description:
+      'Hybrid PV+BESS configurations focused on system architecture, battery sizing, PCS selection and practical load-management strategies for energy storage applications.',
+    capacity: 'PV + BESS',
+    role: 'Hybrid System Design',
+    tools: ['PVsyst', 'AutoCAD', 'Excel'],
+    scope: ['AC-Coupled', 'DC-Coupled', 'BESS sizing', 'PCS selection', 'System architecture', 'Load management', 'Energy flow analysis'],
+    evidence: 'AC/DC topology comparison, storage sizing logic, PCS selection and load-management architecture.',
+    type: 'bess',
+    photo: pvPhoto,
+  },
+  {
+    number: '03',
+    slug: 'solar-pumping',
+    category: 'SOLAR PUMPING SYSTEMS',
+    title: 'Solar Pumping',
+    highlight: 'Engineered for Flow.',
+    description:
+      'Solar-powered pumping systems combining load assessment, PV sizing, pump selection, inverter selection, cable sizing and simulation.',
+    capacity: '75 kW — 130 kW',
+    role: 'Solar System Design',
+    tools: ['PVsyst', 'AutoCAD', 'Excel', 'SketchUp'],
+    scope: ['Load assessment', 'PV sizing', 'Pump selection', 'Inverter selection', 'Cable sizing', 'Simulation', 'Technical studies'],
+    evidence: 'Load assessment, pump/inverter selection, cable sizing and simulation for water-flow requirements.',
+    type: 'pumping',
+    photo: pumpingPhoto,
+  },
+  {
+    number: '04',
+    slug: 'intelligent-pv-cleaner',
+    category: 'GRADUATION PROJECT',
+    title: 'Intelligent PV',
+    highlight: 'Cleaner.',
+    description:
+      'An intelligent photovoltaic cleaning system combining solar power, IoT monitoring and embedded control to reduce dust accumulation and improve PV module operation.',
+    capacity: 'IoT / Automation',
+    role: 'Team Leader',
+    tools: ['Arduino', 'IoT', 'Embedded Systems', 'DC Motors'],
+    scope: ['Arduino control architecture', 'IoT monitoring', 'DC motors', 'Servo actuators', 'Solenoid valves', 'Water circulation', 'Filtration', 'Pumping', 'System integration'],
+    evidence: 'Team-led integration of PV power, IoT monitoring, embedded control, motors, valves and water circulation.',
+    achievement: 'National Competition Recognition',
+    type: 'cleaner',
+    photo: pvPhoto,
+  },
+  {
+    number: '05',
+    slug: 'solar-collector-dryer',
+    category: 'GRADUATION PROJECT',
+    title: 'Solar Collector',
+    highlight: '& Dryer Optimization.',
+    description:
+      'A solar thermal engineering project focused on collector and agricultural drying performance, thermal monitoring, environmental measurements and airflow control.',
+    capacity: 'Solar Thermal',
+    role: 'System Development',
+    tools: ['MATLAB', 'Arduino', 'Sensors', 'Excel'],
+    scope: ['Spherical solar collector', 'Agricultural drying', 'Thermal monitoring', 'Temperature measurement', 'Humidity measurement', 'Airflow system', 'Performance evaluation', 'Iterative optimization'],
+    evidence: 'Thermal and environmental measurement, airflow control, performance evaluation and iterative optimization.',
+    type: 'thermal',
+    photo: thermalPhoto,
+  },
+];

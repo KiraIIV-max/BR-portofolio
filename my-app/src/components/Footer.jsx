@@ -18,6 +18,16 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (pathname !== '/') {
+      gsap.set('.footer-reveal', { opacity: 1, y: 0 });
+      return undefined;
+    }
+    if (reduceMotion) {
+      gsap.set('.footer-reveal', { opacity: 1, y: 0, clearProps: 'transform' });
+      return undefined;
+    }
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.footer-reveal',

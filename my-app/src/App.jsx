@@ -4,18 +4,20 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { useEffect } from "react";
-import Home from './pages/Home';
-import About from './pages/About';
+import { lazy, Suspense, useEffect } from "react";
 import Navbar from './components/Navbar';
-import Projects from './pages/Projects';
-import EngineeringProcess from './pages/EngineeringProcess';
-import Experience from './pages/Experience';
-import Contact from './pages/Contact';
 import Footer from './components/Footer';
-import Skills from './pages/Skills';
-import Achievements from './pages/Achievements';
-import ProjectDetail from './pages/ProjectDetail';
+import NotFound from './pages/NotFound';
+
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const EngineeringProcess = lazy(() => import('./pages/EngineeringProcess'));
+const Experience = lazy(() => import('./pages/Experience'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Skills = lazy(() => import('./pages/Skills'));
+const Achievements = lazy(() => import('./pages/Achievements'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 
 function ScrollRestoration() {
   const { pathname, hash } = useLocation();
@@ -39,17 +41,26 @@ function App() {
       <Navbar />
       <ScrollRestoration />
       <main id="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:slug" element={<ProjectDetail />} />
-          <Route path="/engineering-process" element={<EngineeringProcess />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/achievements" element={<Achievements />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <Suspense
+          fallback={
+            <div className="min-h-screen bg-[#0B0B09] px-6 py-40 text-sm text-white/50">
+              Loading portfolio…
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/engineering-process" element={<EngineeringProcess />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/achievements" element={<Achievements />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </BrowserRouter>

@@ -656,6 +656,8 @@ const About = () => {
               <img
                 src="/image.png"
                 alt="Ibrahim, Renewable Energy Engineer"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 z-20 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
               <div className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-t from-[#0B0B09]/95 via-transparent to-black/10 transition-opacity duration-500 group-hover:from-[#0B0B09]/85" />

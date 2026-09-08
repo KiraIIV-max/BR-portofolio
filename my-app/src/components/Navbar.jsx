@@ -27,7 +27,9 @@ const INTRO_SESSION_KEY = 'navbarIntroComplete';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [introFinished, setIntroFinished] = useState(false);
+  const [introFinished, setIntroFinished] = useState(
+    () => window.location.pathname !== '/'
+  );
   const [activeSection, setActiveSection] = useState('home');
 
   const location = useLocation();
@@ -122,7 +124,6 @@ const Navbar = () => {
   useEffect(() => {
     // Only detect sections on Home
     if (!isHome) {
-      setActiveSection('');
       return;
     }
 
@@ -338,7 +339,6 @@ const Navbar = () => {
     // -------------------------------------------------------
 
     if (!isHome) {
-      setIntroFinished(true);
       return;
     }
 
