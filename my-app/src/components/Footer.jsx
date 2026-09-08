@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const footerRef = useRef(null);
+  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,10 +38,12 @@ const Footer = () => {
           },
         }
       );
+
+      ScrollTrigger.refresh();
     }, footerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [pathname]);
 
   const handleTop = () => {
     window.scrollTo({

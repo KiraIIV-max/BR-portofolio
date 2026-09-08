@@ -1,22 +1,17 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import pvPhoto from '../assets/land.png';
+import pumpingPhoto from '../assets/Sunset Agricultural Scene with Solar Panels.png';
+import thermalPhoto from '../assets/Sunset Serenity Over Rolling Hills.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Projects = () => {
-  const sectionRef = useRef(null);
-  const headerRef = useRef(null);
-  const projectsRef = useRef(null);
-  const footerRef = useRef(null);
-
-  // =========================================================
-  // PROJECT DATA
-  // =========================================================
-
-  const projects = [
+export const projects = [
     {
       number: '01',
+      slug: 'pv-systems',
       category: 'PV SYSTEM DESIGN PORTFOLIO',
       title: 'PV Systems',
       highlight: 'From 17 kW to 2.14 MW.',
@@ -40,10 +35,12 @@ const Projects = () => {
       ],
       evidence: 'Array and string sizing, inverter and MPPT allocation, AC/DC design, layouts and technical proposals.',
       type: 'pv',
+      photo: pvPhoto,
     },
 
     {
       number: '02',
+      slug: 'hybrid-pv-bess',
       category: 'HYBRID ENERGY SYSTEMS',
       title: 'Hybrid PV +',
       highlight: 'BESS Systems.',
@@ -63,10 +60,12 @@ const Projects = () => {
       ],
       evidence: 'AC/DC topology comparison, storage sizing logic, PCS selection and load-management architecture.',
       type: 'bess',
+      photo: pvPhoto,
     },
 
     {
       number: '03',
+      slug: 'solar-pumping',
       category: 'SOLAR PUMPING SYSTEMS',
       title: 'Solar Pumping',
       highlight: 'Engineered for Flow.',
@@ -86,10 +85,12 @@ const Projects = () => {
       ],
       evidence: 'Load assessment, pump/inverter selection, cable sizing and simulation for water-flow requirements.',
       type: 'pumping',
+      photo: pumpingPhoto,
     },
 
     {
       number: '04',
+      slug: 'intelligent-pv-cleaner',
       category: 'GRADUATION PROJECT',
       title: 'Intelligent PV',
       highlight: 'Cleaner.',
@@ -112,10 +113,12 @@ const Projects = () => {
       evidence: 'Team-led integration of PV power, IoT monitoring, embedded control, motors, valves and water circulation.',
       achievement: 'National Competition Recognition',
       type: 'cleaner',
+      photo: pvPhoto,
     },
 
     {
       number: '05',
+      slug: 'solar-collector-dryer',
       category: 'GRADUATION PROJECT',
       title: 'Solar Collector',
       highlight: '& Dryer Optimization.',
@@ -136,8 +139,15 @@ const Projects = () => {
       ],
       evidence: 'Thermal and environmental measurement, airflow control, performance evaluation and iterative optimization.',
       type: 'thermal',
+      photo: thermalPhoto,
     },
-  ];
+];
+
+const Projects = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const projectsRef = useRef(null);
+  const footerRef = useRef(null);
 
   // =========================================================
   // GSAP ANIMATIONS
@@ -1736,6 +1746,14 @@ const Projects = () => {
                         </p>
                       </div>
                     )}
+
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="mt-8 inline-flex items-center gap-3 rounded-lg border border-amber-400/35 bg-amber-400/[0.06] px-4 py-3 text-xs font-semibold text-amber-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-amber-400/15 hover:text-amber-200"
+                    >
+                      View case study
+                      <span aria-hidden="true">↗</span>
+                    </Link>
                   </div>
                 </div>
               </div>
