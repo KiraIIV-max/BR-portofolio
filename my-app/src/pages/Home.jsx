@@ -65,12 +65,14 @@ const Home = () => {
     let cancelled = false;
 
     // -------------------------------------------------------
-    // Wait for Navbar intro to FULLY finish
+    // Navbar tells the Hero when its full intro is complete
     // -------------------------------------------------------
 
     const handleNavbarIntroComplete = () => {
       if (cancelled) return;
 
+      // Start immediately.
+      // No artificial delay here.
       requestAnimationFrame(() => {
         if (!cancelled) {
           setHeroReady(true);
@@ -84,7 +86,8 @@ const Home = () => {
     );
 
     // -------------------------------------------------------
-    // Fallback if Navbar already finished
+    // Fallback for cases where Navbar already completed
+    // before this listener was attached.
     // -------------------------------------------------------
 
     const navbarAlreadyFinished =
@@ -146,19 +149,14 @@ const Home = () => {
       // =======================================================
 
       // -------------------------------------------------------
-      // BACKGROUND
-      //
-      // IMPORTANT:
-      // Reduced zoom animation to avoid a second "intro"
-      // appearing after the Navbar.
+      // Background
       // -------------------------------------------------------
 
       gsap.set(heroImageRef.current, {
-        scale: reduceMotion ? 1 : 1.025,
-
+        scale: reduceMotion ? 1.03 : 1.08,
         filter: reduceMotion
           ? 'blur(0px) brightness(1)'
-          : 'blur(3px) brightness(0.84)',
+          : 'blur(4px) brightness(0.78)',
       });
 
       // -------------------------------------------------------
@@ -252,10 +250,11 @@ const Home = () => {
       // =======================================================
 
       if (reduceMotion) {
-        tl.set(
+        tl.to(
           heroImageRef.current,
           {
-            scale: 1,
+            duration: 0.2,
+            scale: 1.03,
             filter:
               'blur(0px) brightness(1)',
           },
@@ -265,14 +264,10 @@ const Home = () => {
         tl.to(
           heroImageRef.current,
           {
-            duration: 1.25,
-
-            // Very subtle movement only.
-            scale: 1,
-
+            duration: 1.8,
+            scale: 1.03,
             filter:
               'blur(0px) brightness(1)',
-
             ease: 'power2.out',
           },
           0
@@ -289,10 +284,8 @@ const Home = () => {
           duration: reduceMotion
             ? 0.2
             : 0.55,
-
           opacity: 1,
           y: 0,
-
           ease: 'power3.out',
         },
         0.12
@@ -300,6 +293,12 @@ const Home = () => {
 
       // =======================================================
       // 0.32 — HEADLINE
+      //
+      // Engineering the
+      // Power
+      // of Sunlight.
+      //
+      // LEFT → RIGHT REVEAL
       // =======================================================
 
       headlineLinesRef.current.forEach(
@@ -322,7 +321,7 @@ const Home = () => {
       );
 
       // =======================================================
-      // 0.90 — SPECIALIZATION DOTS
+      // 0.92 — SPECIALIZATION DOTS
       // =======================================================
 
       specializationDotsRef.current.forEach(
@@ -464,7 +463,7 @@ const Home = () => {
       );
 
       // =======================================================
-      // 2.33 — PRIMARY BUTTON SIGNAL
+      // 2.33 — PRIMARY BUTTON IDLE SIGNAL
       // =======================================================
 
       if (
@@ -677,6 +676,9 @@ const Home = () => {
               max-w-3xl
               lg:max-w-4xl
             "
+            style={{
+              opacity: heroReady ? 1 : 0,
+            }}
           >
 
             {/* =================================================
@@ -774,6 +776,8 @@ const Home = () => {
               "
             >
 
+              {/* Engineering */}
+
               <div className="overflow-hidden">
 
                 <div
@@ -788,6 +792,8 @@ const Home = () => {
 
               </div>
 
+              {/* Power */}
+
               <div className="overflow-hidden">
 
                 <div
@@ -801,6 +807,8 @@ const Home = () => {
                 </div>
 
               </div>
+
+              {/* of Sunlight */}
 
               <div className="overflow-hidden">
 
@@ -838,19 +846,25 @@ const Home = () => {
               "
             >
 
+              {/* PV */}
+
               <span
                 ref={addSpecialization}
                 className="
                   text-xs
                   font-medium
                   text-white/75
+
                   will-change-transform
+
                   md:text-sm
                 "
               >
                 PV System Design
               </span>
 
+              {/* Dot */}
+
               <span
                 ref={addSpecializationDot}
                 className="
@@ -860,6 +874,8 @@ const Home = () => {
                   bg-amber-400
                 "
               />
+
+              {/* Hybrid */}
 
               <span
                 ref={addSpecialization}
@@ -867,12 +883,16 @@ const Home = () => {
                   text-xs
                   font-medium
                   text-white/75
+
                   will-change-transform
+
                   md:text-sm
                 "
               >
                 Hybrid PV & BESS
               </span>
+
+              {/* Dot */}
 
               <span
                 ref={addSpecializationDot}
@@ -883,6 +903,8 @@ const Home = () => {
                   bg-amber-400
                 "
               />
+
+              {/* Electrical */}
 
               <span
                 ref={addSpecialization}
@@ -890,7 +912,9 @@ const Home = () => {
                   text-xs
                   font-medium
                   text-white/50
+
                   will-change-transform
+
                   md:text-sm
                 "
               >
@@ -907,10 +931,12 @@ const Home = () => {
               ref={descriptionRef}
               className="
                 mt-5
+
                 max-w-xl
 
                 text-xs
                 leading-6
+
                 text-white/60
 
                 sm:text-sm
@@ -953,6 +979,8 @@ const Home = () => {
               "
             >
 
+              {/* Primary CTA */}
+
               <a
                 ref={primaryButtonRef}
                 href="#projects"
@@ -965,6 +993,7 @@ const Home = () => {
                   gap-2.5
 
                   overflow-hidden
+
                   rounded-lg
 
                   bg-amber-400
@@ -974,6 +1003,7 @@ const Home = () => {
 
                   text-xs
                   font-semibold
+
                   text-black
 
                   shadow-lg
@@ -1034,6 +1064,8 @@ const Home = () => {
                 </span>
 
               </a>
+
+              {/* Secondary CTA */}
 
               <a
                 href="#contact"
@@ -1097,6 +1129,10 @@ const Home = () => {
               "
             >
 
+              {/* =================================================
+                  01 — 2.14 MW
+              ================================================= */}
+
               <div
                 ref={addMetric}
                 className="
@@ -1131,6 +1167,7 @@ const Home = () => {
                     tracking-tight
 
                     sm:text-2xl
+
                     md:text-2xl
                   "
                 >
@@ -1157,6 +1194,10 @@ const Home = () => {
                 </p>
 
               </div>
+
+              {/* =================================================
+                  02 — EXPERIENCE
+              ================================================= */}
 
               <div
                 ref={addMetric}
@@ -1197,6 +1238,7 @@ const Home = () => {
                     tracking-tight
 
                     sm:text-2xl
+
                     md:text-2xl
                   "
                 >
@@ -1223,6 +1265,10 @@ const Home = () => {
                 </p>
 
               </div>
+
+              {/* =================================================
+                  03 — AC / DC
+              ================================================= */}
 
               <div
                 ref={addMetric}
@@ -1266,6 +1312,7 @@ const Home = () => {
                     tracking-tight
 
                     sm:text-2xl
+
                     md:text-2xl
                   "
                 >
@@ -1293,6 +1340,10 @@ const Home = () => {
                 </p>
 
               </div>
+
+              {/* =================================================
+                  04 — PV + BESS
+              ================================================= */}
 
               <div
                 ref={addMetric}
@@ -1336,6 +1387,7 @@ const Home = () => {
                     tracking-tight
 
                     sm:text-2xl
+
                     md:text-2xl
                   "
                 >
@@ -1397,6 +1449,7 @@ const Home = () => {
           <span
             className="
               mb-4
+
               rotate-90
 
               text-[8px]
