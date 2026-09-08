@@ -1,59 +1,73 @@
-import React, { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// =========================================================
+// EXPERIENCE DATA
+// =========================================================
+
 const stages = [
   {
-    id: "01",
-    year: "2023",
-    kicker: "THE BEGINNING",
-    title: "Renewable Energy",
-    text: "The journey started with a foundation in renewable energy and a specialization in Solar Energy.",
-    meta: "University · Solar Energy",
+    id: '01',
+    label: 'PV DESIGN',
+    title: 'Engineering',
+    accent: 'the system.',
+    text:
+      'Developing photovoltaic system designs from project requirements into practical electrical configurations — from array sizing and string configuration to inverter selection and AC/DC design.',
+    meta: 'SketchUp · PVsyst · AutoCAD',
   },
   {
-    id: "02",
-    year: "2023",
-    kicker: "BUILDING THE HARDWARE",
-    title: "Electronics & Embedded",
-    text: "Electronics, microcontrollers and PCB design added another layer to the engineering mindset.",
-    meta: "Microchip · Embedded Systems",
+    id: '02',
+    label: 'SIMULATION',
+    title: 'Validating',
+    accent: 'the performance.',
+    text:
+      'Using PVsyst simulation to evaluate energy yield, losses, shading effects and expected system performance before moving the design toward execution.',
+    meta: 'PVsyst · Yield · Loss Analysis',
   },
   {
-    id: "03",
-    year: "2024",
-    kicker: "CONTROL",
-    title: "Automation & Control",
-    text: "PLC programming, industrial automation and motor drives expanded the ability to understand complete electrical systems.",
-    meta: "PLC · TIA Portal · Drives",
+    id: '03',
+    label: 'CAD DOCUMENTATION',
+    title: 'Translating',
+    accent: 'design into drawings.',
+    text:
+      'Turning engineering calculations into clear technical documentation including single line diagrams, string layouts, cable routing, earthing layouts and structural details.',
+    meta: 'AutoCAD · SLDs · Layouts',
   },
   {
-    id: "04",
-    year: "2024",
-    kicker: "GOING SOLAR",
-    title: "LONGi Solar Training",
-    text: "Industry-focused solar training moved the journey deeper into photovoltaic technology.",
-    meta: "LONGi · PV Technology",
+    id: '04',
+    label: 'TENDERING',
+    title: 'Connecting',
+    accent: 'design to business.',
+    text:
+      'Supporting technical and commercial decision-making through BOQs, technical offers, cost evaluation, vendor assessment and project tendering.',
+    meta: 'BOQ · ROI · Vendor Evaluation',
   },
   {
-    id: "05",
-    year: "2025",
-    kicker: "SCALING UP",
-    title: "Utility Scale PV",
-    text: "Advanced photovoltaic training introduced utility-scale systems, PVsyst simulation, MV concepts, tendering and project management.",
-    meta: "ECO Egypt · Utility Scale",
+    id: '05',
+    label: 'ENGINEERING COORDINATION',
+    title: 'Moving',
+    accent: 'projects forward.',
+    text:
+      'Connecting design, procurement and project requirements through technical coordination, vendor communication, site support and practical engineering problem-solving.',
+    meta: 'Coordination · Procurement · Site Support',
   },
   {
-    id: "06",
-    year: "2025 → NOW",
-    kicker: "REAL PROJECTS",
-    title: "Technical Office Engineer",
-    text: "Engineering real PV systems at Mashreq for Energy Systems — from sizing and string layouts to drawings, offers and financial analysis.",
-    meta: "Mashreq · PV Design · 2.14 MW",
+    id: '06',
+    label: 'R&D / AUTOMATION',
+    title: 'Automating',
+    accent: 'engineering decisions.',
+    text:
+      'Developing an Excel-based hybrid PV design and sizing automation tool to streamline calculations, improve consistency and accelerate technical evaluation.',
+    meta: 'Excel · PV Sizing · Automation',
   },
 ];
+
+// =========================================================
+// SOLAR FIELD PANELS
+// =========================================================
 
 const panels = [
   [0, 0],
@@ -78,7 +92,11 @@ const panels = [
   [350, 90],
 ];
 
-export default function Experience() {
+// =========================================================
+// COMPONENT
+// =========================================================
+
+const Experience = () => {
   const sectionRef = useRef(null);
 
   const introRef = useRef(null);
@@ -108,6 +126,12 @@ export default function Experience() {
   const panelRefs = useRef([]);
   const stageTextRefs = useRef([]);
 
+  const internshipRef = useRef(null);
+
+  // =========================================================
+  // GSAP
+  // =========================================================
+
   useLayoutEffect(() => {
     const section = sectionRef.current;
 
@@ -120,10 +144,10 @@ export default function Experience() {
       // DESKTOP
       // =====================================================
 
-      mm.add("(min-width: 1024px)", () => {
-        /*
-         * Initial state
-         */
+      mm.add('(min-width: 1024px)', () => {
+        // ===================================================
+        // INITIAL STATES
+        // ===================================================
 
         gsap.set(introRef.current, {
           autoAlpha: 1,
@@ -168,7 +192,7 @@ export default function Experience() {
 
         gsap.set(energyBeamRef.current, {
           scaleX: 0,
-          transformOrigin: "left center",
+          transformOrigin: 'left center',
         });
 
         gsap.set(energyParticleRef.current, {
@@ -199,7 +223,7 @@ export default function Experience() {
         gsap.set(stageTextRefs.current, {
           autoAlpha: 0,
           y: 35,
-          filter: "blur(8px)",
+          filter: 'blur(8px)',
         });
 
         gsap.set(finalRef.current, {
@@ -208,43 +232,49 @@ export default function Experience() {
 
         gsap.set(scaleRef.current, {
           scaleX: 0,
-          transformOrigin: "left center",
+          transformOrigin: 'left center',
         });
 
-        /*
-         * MASTER SCROLL TIMELINE
-         */
+        gsap.set(internshipRef.current, {
+          autoAlpha: 0,
+          y: 30,
+        });
+
+        // ===================================================
+        // MASTER SCROLL TIMELINE
+        // ===================================================
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: "top top",
-            end: "+=7200",
+            start: 'top top',
+            end: '+=7600',
             scrub: 1.5,
             pin: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
+
           defaults: {
-            ease: "power2.out",
+            ease: 'power2.out',
           },
         });
 
-        // =====================================================
+        // ===================================================
         // 01 — INTRO
-        // =====================================================
+        // ===================================================
 
         tl.to(introRef.current, {
           autoAlpha: 0,
           scale: 1.04,
           y: -25,
           duration: 0.8,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         });
 
-        // =====================================================
+        // ===================================================
         // 02 — SUNRISE
-        // =====================================================
+        // ===================================================
 
         tl.to(
           sunRef.current,
@@ -253,9 +283,9 @@ export default function Experience() {
             scale: 1,
             y: 0,
             duration: 1.4,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.2"
+          '-=0.2'
         );
 
         tl.to(
@@ -264,26 +294,26 @@ export default function Experience() {
             scale: 1.15,
             opacity: 1,
             duration: 1.2,
-            ease: "power2.out",
+            ease: 'power2.out',
           },
-          "<"
+          '<'
         );
 
-        // Sun slowly travels upward
+        // Sun moves upward
         tl.to(
           sunRef.current,
           {
             y: -80,
             scale: 1.08,
             duration: 3,
-            ease: "none",
+            ease: 'none',
           },
-          "+=0.2"
+          '+=0.2'
         );
 
-        // =====================================================
+        // ===================================================
         // 03 — HORIZON
-        // =====================================================
+        // ===================================================
 
         tl.to(
           horizonRef.current,
@@ -291,14 +321,14 @@ export default function Experience() {
             autoAlpha: 1,
             scaleX: 1,
             duration: 0.8,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=2.5"
+          '-=2.5'
         );
 
-        // =====================================================
+        // ===================================================
         // 04 — SOLAR FIELD
-        // =====================================================
+        // ===================================================
 
         tl.to(
           fieldRef.current,
@@ -307,9 +337,9 @@ export default function Experience() {
             y: 0,
             scale: 1,
             duration: 1.2,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=1.8"
+          '-=1.8'
         );
 
         tl.to(
@@ -318,14 +348,14 @@ export default function Experience() {
             opacity: 1,
             scaleX: 1,
             duration: 1,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.8"
+          '-=0.8'
         );
 
-        // =====================================================
+        // ===================================================
         // 05 — PANELS BUILD
-        // =====================================================
+        // ===================================================
 
         tl.to(
           panelRefs.current,
@@ -336,16 +366,16 @@ export default function Experience() {
             duration: 1.1,
             stagger: {
               each: 0.055,
-              from: "center",
+              from: 'center',
             },
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.6"
+          '-=0.6'
         );
 
-        // =====================================================
+        // ===================================================
         // 06 — ENERGY FLOW
-        // =====================================================
+        // ===================================================
 
         tl.to(
           energyRef.current,
@@ -353,7 +383,7 @@ export default function Experience() {
             autoAlpha: 1,
             duration: 0.5,
           },
-          "+=0.1"
+          '+=0.1'
         );
 
         tl.to(
@@ -361,9 +391,9 @@ export default function Experience() {
           {
             scaleX: 1,
             duration: 1.2,
-            ease: "power3.inOut",
+            ease: 'power3.inOut',
           },
-          "-=0.2"
+          '-=0.2'
         );
 
         tl.to(
@@ -372,14 +402,14 @@ export default function Experience() {
             xPercent: 100,
             opacity: 1,
             duration: 1.5,
-            ease: "power2.inOut",
+            ease: 'power2.inOut',
           },
-          "-=0.8"
+          '-=0.8'
         );
 
-        // =====================================================
+        // ===================================================
         // 07 — GRID CONNECTION
-        // =====================================================
+        // ===================================================
 
         tl.to(
           gridRef.current,
@@ -387,14 +417,14 @@ export default function Experience() {
             autoAlpha: 1,
             y: 0,
             duration: 0.8,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.5"
+          '-=0.5'
         );
 
-        // =====================================================
-        // 08 — ENGINEERING TITLE
-        // =====================================================
+        // ===================================================
+        // 08 — MAIN EXPERIENCE INTRO
+        // ===================================================
 
         tl.to(
           titleRef.current,
@@ -402,9 +432,9 @@ export default function Experience() {
             autoAlpha: 1,
             y: 0,
             duration: 0.9,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "+=0.2"
+          '+=0.2'
         );
 
         tl.to(
@@ -413,17 +443,18 @@ export default function Experience() {
             autoAlpha: 1,
             y: 0,
             duration: 0.7,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.45"
+          '-=0.45'
         );
 
-        // =====================================================
+        // ===================================================
         // 09 — EXPERIENCE STAGES
-        // =====================================================
+        // ===================================================
 
         stages.forEach((stage, index) => {
-          const current = stageTextRefs.current[index];
+          const current =
+            stageTextRefs.current[index];
 
           if (!current) return;
 
@@ -434,22 +465,22 @@ export default function Experience() {
               autoAlpha: 1,
               y: 0,
               duration: 0.4,
-              ease: "power2.out",
+              ease: 'power2.out',
             },
-            "+=0.15"
+            '+=0.15'
           );
 
-          // Current stage enters
+          // Stage content
           tl.to(
             current,
             {
               autoAlpha: 1,
               y: 0,
-              filter: "blur(0px)",
+              filter: 'blur(0px)',
               duration: 0.8,
-              ease: "power3.out",
+              ease: 'power3.out',
             },
-            "-=0.2"
+            '-=0.2'
           );
 
           // Counter
@@ -458,15 +489,15 @@ export default function Experience() {
             {
               textContent: stage.id,
               duration: 0.35,
-              ease: "none",
+              ease: 'none',
               snap: {
                 textContent: 1,
               },
             },
-            "<"
+            '<'
           );
 
-          // Slight cinematic hold
+          // Hold
           tl.to(
             {},
             {
@@ -474,23 +505,23 @@ export default function Experience() {
             }
           );
 
-          // Stage exits
+          // Exit
           tl.to(
             current,
             {
               autoAlpha: 0,
               y: -25,
-              filter: "blur(6px)",
+              filter: 'blur(6px)',
               duration: 0.65,
-              ease: "power2.inOut",
+              ease: 'power2.inOut',
             },
-            "+=0.05"
+            '+=0.05'
           );
         });
 
-        // =====================================================
-        // 10 — SCENE COLLAPSE
-        // =====================================================
+        // ===================================================
+        // 10 — INTERNSHIP
+        // ===================================================
 
         tl.to(
           [
@@ -506,43 +537,61 @@ export default function Experience() {
           {
             autoAlpha: 0,
             y: -20,
-            duration: 1.1,
-            ease: "power3.inOut",
+            duration: 1,
+            ease: 'power3.inOut',
           },
-          "+=0.2"
+          '+=0.2'
         );
 
-        // =====================================================
-        // 11 — FINAL MESSAGE
-        // =====================================================
+        tl.to(
+          internshipRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
+          },
+          '-=0.25'
+        );
+
+        // ===================================================
+        // 11 — FINAL SCALE
+        // ===================================================
+
+        tl.to(
+          internshipRef.current,
+          {
+            autoAlpha: 0,
+            y: -20,
+            duration: 0.8,
+            ease: 'power3.inOut',
+          },
+          '+=0.7'
+        );
 
         tl.to(
           finalRef.current,
           {
             autoAlpha: 1,
             duration: 1.1,
-            ease: "power3.out",
+            ease: 'power3.out',
           },
-          "-=0.3"
+          '-=0.3'
         );
 
-        // Scale line
         tl.to(
           scaleRef.current,
           {
             scaleX: 1,
             duration: 1.5,
-            ease: "power3.inOut",
+            ease: 'power3.inOut',
           },
-          "-=0.5"
+          '-=0.5'
         );
 
-        // =====================================================
+        // ===================================================
         // AMBIENT ANIMATIONS
-        // IMPORTANT:
-        // These animate child elements, not timeline targets.
-        // This prevents transform conflicts with ScrollTrigger.
-        // =====================================================
+        // ===================================================
 
         gsap.to(sunGlowRef.current, {
           scale: 1.08,
@@ -550,7 +599,7 @@ export default function Experience() {
           repeat: -1,
           yoyo: true,
           duration: 2.8,
-          ease: "sine.inOut",
+          ease: 'sine.inOut',
         });
 
         gsap.to(energyParticleRef.current, {
@@ -558,7 +607,7 @@ export default function Experience() {
           repeat: -1,
           yoyo: true,
           duration: 1.1,
-          ease: "sine.inOut",
+          ease: 'sine.inOut',
         });
 
         gsap.to(fieldGroundRef.current, {
@@ -566,7 +615,7 @@ export default function Experience() {
           repeat: -1,
           yoyo: true,
           duration: 5,
-          ease: "sine.inOut",
+          ease: 'sine.inOut',
         });
       });
 
@@ -574,9 +623,13 @@ export default function Experience() {
       // MOBILE
       // =====================================================
 
-      mm.add("(max-width: 1023px)", () => {
+      mm.add('(max-width: 1023px)', () => {
+        // ---------------------------------------------------
+        // Initial states
+        // ---------------------------------------------------
+
         gsap.set(introRef.current, {
-          display: "none",
+          display: 'none',
         });
 
         gsap.set(
@@ -590,6 +643,7 @@ export default function Experience() {
             descriptionRef.current,
             stageRef.current,
             finalRef.current,
+            internshipRef.current,
           ],
           {
             opacity: 0,
@@ -599,100 +653,152 @@ export default function Experience() {
         gsap.set(stageTextRefs.current, {
           opacity: 0,
           y: 25,
-          filter: "blur(5px)",
+          filter: 'blur(5px)',
         });
 
-        // Scene entrance
+        // ---------------------------------------------------
+        // Solar scene
+        // ---------------------------------------------------
+
         gsap.to(
-          [sunRef.current, horizonRef.current, fieldRef.current],
+          [
+            sunRef.current,
+            horizonRef.current,
+            fieldRef.current,
+          ],
           {
             opacity: 1,
             y: 0,
             duration: 1.2,
             stagger: 0.12,
-            ease: "power3.out",
+            ease: 'power3.out',
+
             scrollTrigger: {
               trigger: section,
-              start: "top 80%",
+              start: 'top 80%',
               once: true,
             },
           }
         );
 
+        // ---------------------------------------------------
         // Energy
+        // ---------------------------------------------------
+
         gsap.to(energyRef.current, {
           opacity: 1,
           duration: 0.8,
+
           scrollTrigger: {
             trigger: energyRef.current,
-            start: "top 85%",
+            start: 'top 85%',
             once: true,
           },
         });
 
+        // ---------------------------------------------------
         // Grid
+        // ---------------------------------------------------
+
         gsap.to(gridRef.current, {
           opacity: 1,
           y: 0,
           duration: 0.8,
+
           scrollTrigger: {
             trigger: gridRef.current,
-            start: "top 85%",
+            start: 'top 85%',
             once: true,
           },
         });
 
-        // Title
+        // ---------------------------------------------------
+        // Main title
+        // ---------------------------------------------------
+
         gsap.to(titleRef.current, {
           opacity: 1,
           y: 0,
           duration: 0.9,
-          ease: "power3.out",
+          ease: 'power3.out',
+
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top 82%",
+            start: 'top 82%',
             once: true,
           },
         });
+
+        // ---------------------------------------------------
+        // Description
+        // ---------------------------------------------------
 
         gsap.to(descriptionRef.current, {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          ease: "power3.out",
+          ease: 'power3.out',
+
           scrollTrigger: {
             trigger: descriptionRef.current,
-            start: "top 85%",
+            start: 'top 85%',
             once: true,
           },
         });
 
+        // ---------------------------------------------------
         // Experience stages
-        stageTextRefs.current.forEach((text, index) => {
-          if (!text) return;
+        // ---------------------------------------------------
 
-          gsap.to(text, {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.8,
-            delay: index * 0.08,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: text,
-              start: "top 85%",
-              once: true,
-            },
-          });
+        stageTextRefs.current.forEach(
+          (text, index) => {
+            if (!text) return;
+
+            gsap.to(text, {
+              opacity: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.8,
+              delay: index * 0.08,
+              ease: 'power3.out',
+
+              scrollTrigger: {
+                trigger: text,
+                start: 'top 85%',
+                once: true,
+              },
+            });
+          }
+        );
+
+        // ---------------------------------------------------
+        // Internship
+        // ---------------------------------------------------
+
+        gsap.to(internshipRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+
+          scrollTrigger: {
+            trigger: internshipRef.current,
+            start: 'top 85%',
+            once: true,
+          },
         });
 
+        // ---------------------------------------------------
         // Final
+        // ---------------------------------------------------
+
         gsap.to(finalRef.current, {
           opacity: 1,
           duration: 1,
+
           scrollTrigger: {
             trigger: finalRef.current,
-            start: "top 80%",
+            start: 'top 80%',
             once: true,
           },
         });
@@ -704,6 +810,10 @@ export default function Experience() {
     return () => ctx.revert();
   }, []);
 
+  // =========================================================
+  // RENDER
+  // =========================================================
+
   return (
     <section
       ref={sectionRef}
@@ -714,14 +824,15 @@ export default function Experience() {
         overflow-hidden
         bg-[#080807]
         text-white
+        scroll-mt-24
       "
     >
       {/* =====================================================
           BACKGROUND
-      ====================================================== */}
+      ===================================================== */}
 
       <div className="pointer-events-none absolute inset-0">
-        {/* Ambient solar glow */}
+        {/* Solar atmosphere */}
 
         <div
           className="
@@ -740,11 +851,15 @@ export default function Experience() {
         {/* Technical grid */}
 
         <div
-          className="absolute inset-0 opacity-[0.035]"
+          className="
+            absolute
+            inset-0
+            opacity-[0.035]
+          "
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
+              'linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)',
+            backgroundSize: '80px 80px',
           }}
         />
 
@@ -763,7 +878,7 @@ export default function Experience() {
           "
         />
 
-        {/* Subtle vignette */}
+        {/* Vignette */}
 
         <div
           className="
@@ -776,7 +891,7 @@ export default function Experience() {
 
       {/* =====================================================
           INTRO
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={introRef}
@@ -823,7 +938,7 @@ export default function Experience() {
             <br />
 
             <span className="text-white/20">
-              Behind The System.
+              Behind The Systems.
             </span>
           </h2>
 
@@ -837,15 +952,16 @@ export default function Experience() {
               text-white/30
             "
           >
-            From learning how energy works to engineering
-            systems that move it.
+            Turning photovoltaic engineering into
+            practical, documented and commercially
+            viable energy systems.
           </p>
         </div>
       </div>
 
       {/* =====================================================
           SUN
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={sunRef}
@@ -888,7 +1004,7 @@ export default function Experience() {
 
       {/* =====================================================
           HORIZON
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={horizonRef}
@@ -908,7 +1024,7 @@ export default function Experience() {
 
       {/* =====================================================
           SOLAR FIELD
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={fieldRef}
@@ -969,7 +1085,8 @@ export default function Experience() {
             style={{
               left: `${x}px`,
               top: `${y}px`,
-              transform: "rotate(-12deg) skewX(-12deg)",
+              transform:
+                'rotate(-12deg) skewX(-12deg)',
             }}
           >
             <div className="absolute inset-1 border border-white/5" />
@@ -1038,7 +1155,7 @@ export default function Experience() {
 
       {/* =====================================================
           ENERGY FLOW
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={energyRef}
@@ -1113,14 +1230,14 @@ export default function Experience() {
               text-amber-400/50
             "
           >
-            Solar Energy Flow
+            Engineering Flow
           </div>
         </div>
       </div>
 
       {/* =====================================================
-          GRID
-      ====================================================== */}
+          GRID CONNECTION
+      ===================================================== */}
 
       <div
         ref={gridRef}
@@ -1164,13 +1281,13 @@ export default function Experience() {
             text-white/25
           "
         >
-          GRID
+          MASHREQ
         </span>
       </div>
 
       {/* =====================================================
           MAIN TITLE
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={titleRef}
@@ -1192,13 +1309,13 @@ export default function Experience() {
             text-amber-400/60
           "
         >
-          Engineering Journey
+          Professional Experience
         </div>
 
         <h3
           className="
             mt-4
-            max-w-[550px]
+            max-w-[600px]
             text-4xl
             font-light
             leading-[0.95]
@@ -1207,18 +1324,18 @@ export default function Experience() {
             lg:text-6xl
           "
         >
-          Every system
+          Technical Office Engineer
           <br />
-          starts with{" "}
+
           <span className="text-amber-400">
-            understanding.
+            at Mashreq for Energy Systems.
           </span>
         </h3>
       </div>
 
       {/* =====================================================
           DESCRIPTION
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={descriptionRef}
@@ -1227,7 +1344,7 @@ export default function Experience() {
           bottom-[9%]
           left-6
           z-30
-          max-w-[430px]
+          max-w-[480px]
           sm:left-10
           lg:left-14
           xl:left-20
@@ -1241,15 +1358,18 @@ export default function Experience() {
             sm:text-sm
           "
         >
-          A progression from renewable energy fundamentals,
-          through electrical systems and automation, into
-          professional photovoltaic engineering.
+          Cairo, Egypt · 2025 — Present
+          <br />
+          Designing, simulating and documenting
+          photovoltaic energy systems while supporting
+          tendering, cost evaluation and engineering
+          coordination.
         </p>
       </div>
 
       {/* =====================================================
           EXPERIENCE STAGE
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         ref={stageRef}
@@ -1288,7 +1408,7 @@ export default function Experience() {
               text-white/25
             "
           >
-            Experience / Signal
+            Mashreq / Engineering Signal
           </span>
 
           <span
@@ -1303,14 +1423,15 @@ export default function Experience() {
           </span>
         </div>
 
-        {/* Stage texts */}
+        {/* Stage content */}
 
         <div className="relative min-h-[360px]">
           {stages.map((stage, index) => (
             <div
               key={`stage-${stage.id}`}
               ref={(el) => {
-                stageTextRefs.current[index] = el;
+                stageTextRefs.current[index] =
+                  el;
               }}
               className="
                 absolute
@@ -1328,7 +1449,7 @@ export default function Experience() {
                   text-amber-400
                 "
               >
-                {stage.year}
+                {stage.id}
               </div>
 
               <div
@@ -1340,7 +1461,7 @@ export default function Experience() {
                   text-white/30
                 "
               >
-                {stage.kicker}
+                {stage.label}
               </div>
 
               <h4
@@ -1355,6 +1476,10 @@ export default function Experience() {
                 "
               >
                 {stage.title}
+
+                <span className="block text-amber-400">
+                  {stage.accent}
+                </span>
               </h4>
 
               <p
@@ -1397,8 +1522,116 @@ export default function Experience() {
       </div>
 
       {/* =====================================================
-          FINAL
-      ====================================================== */}
+          INTERNSHIP
+      ===================================================== */}
+
+      <div
+        ref={internshipRef}
+        className="
+          absolute
+          inset-0
+          z-50
+          flex
+          items-center
+          justify-center
+          px-6
+        "
+      >
+        <div className="w-full max-w-5xl">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <div>
+              <div
+                className="
+                  text-[9px]
+                  uppercase
+                  tracking-[0.45em]
+                  text-amber-400/60
+                "
+              >
+                Summer 2025
+              </div>
+
+              <h3
+                className="
+                  mt-5
+                  text-5xl
+                  font-light
+                  leading-[0.92]
+                  tracking-[-0.05em]
+                  sm:text-6xl
+                  lg:text-[7rem]
+                "
+              >
+                Technical Office
+                <br />
+
+                <span className="text-white/20">
+                  Engineer — Internship.
+                </span>
+              </h3>
+            </div>
+
+            <div className="lg:pb-2">
+              <div className="border-l border-amber-400/30 pl-6">
+                <p
+                  className="
+                    text-[9px]
+                    uppercase
+                    tracking-[0.3em]
+                    text-white/20
+                  "
+                >
+                  Mashreq for Energy Systems
+                </p>
+
+                <p
+                  className="
+                    mt-4
+                    text-sm
+                    leading-7
+                    text-white/40
+                  "
+                >
+                  Shop drawings · As-built plans ·
+                  Technical submissions · Solar pumping ·
+                  On-grid PV studies
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                {[
+                  'Shop Drawings',
+                  'As-Built',
+                  'Technical Submissions',
+                  'Solar Pumping',
+                  'On-Grid PV',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="
+                      rounded-full
+                      border
+                      border-white/10
+                      px-3
+                      py-2
+                      text-[9px]
+                      uppercase
+                      tracking-wider
+                      text-white/35
+                    "
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* =====================================================
+          FINAL MESSAGE
+      ===================================================== */}
 
       <div
         ref={finalRef}
@@ -1437,13 +1670,15 @@ export default function Experience() {
               lg:text-[8rem]
             "
           >
-            I don't just have
+            Engineering
             <br />
 
             <span className="text-white/20">
-              experience.
+              that scales.
             </span>
           </h3>
+
+          {/* Scale line */}
 
           <div className="mt-8 overflow-hidden">
             <div
@@ -1458,6 +1693,8 @@ export default function Experience() {
               "
             />
           </div>
+
+          {/* Capacity */}
 
           <div className="mt-8">
             <div
@@ -1487,27 +1724,56 @@ export default function Experience() {
                 text-white/25
               "
             >
-              From individual systems to large-scale PV engineering
+              From individual PV systems to
+              large-scale solar engineering
             </p>
           </div>
 
+          {/* Main professional statement */}
+
           <div
             className="
-              mt-12
+              mt-10
               text-2xl
               font-light
               tracking-[-0.02em]
               sm:text-3xl
             "
           >
-            I build systems.
+            Design.
+            <span className="text-white/25">
+              {' '}
+              Simulate.
+            </span>{' '}
+            Document.
+            <span className="text-white/25">
+              {' '}
+              Deliver.
+            </span>
           </div>
+
+          {/* R&D */}
+
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-2xl
+              text-sm
+              leading-7
+              text-white/30
+            "
+          >
+            PV engineering supported by technical
+            documentation, commercial analysis and
+            automation.
+          </p>
         </div>
       </div>
 
       {/* =====================================================
           FOOTER LABEL
-      ====================================================== */}
+      ===================================================== */}
 
       <div
         className="
@@ -1540,8 +1806,10 @@ export default function Experience() {
           sm:right-10
         "
       >
-        2023 — PRESENT
+        MASHREQ / 2025 — PRESENT
       </div>
     </section>
   );
-}
+};
+
+export default Experience;

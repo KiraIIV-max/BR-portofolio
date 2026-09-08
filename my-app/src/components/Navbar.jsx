@@ -46,6 +46,7 @@ const Navbar = () => {
     { name: 'Process', path: '/#process' },
     { name: 'Experience', path: '/#experience' },
     { name: 'Skills', path: '/#skills' },
+    { name: 'Achievements', path: '/#achievements' },
     { name: 'Contact', path: '/#contact' },
   ];
 
@@ -112,9 +113,10 @@ const Navbar = () => {
     const sectionIds = [
       'about',
       'projects',
-      'engineering-process',
+      'process',
       'experience',
       'skills',
+      'achievements',
       'contact',
     ];
 
@@ -388,7 +390,8 @@ const Navbar = () => {
       gsap.set(logo, {
         x: moveX,
         y: moveY + 180,
-        scale: targetScale * 0.88,
+        scale:
+          targetScale * 0.88,
         opacity: 0,
         transformOrigin:
           'center center',
@@ -435,11 +438,14 @@ const Navbar = () => {
           onComplete: () => {
             setIntroFinished(true);
 
-            window.dispatchEvent(
-              new CustomEvent(
-                'navbarIntroComplete'
-              )
-            );
+            // Tell Hero that Navbar animation is finished
+            requestAnimationFrame(() => {
+              window.dispatchEvent(
+                new CustomEvent(
+                  'navbarIntroComplete'
+                )
+              );
+            });
           },
         });
 
@@ -862,8 +868,8 @@ const Navbar = () => {
               "
             >
               <a
-                href="/Ahmed_Mohamed_CV (4).pdf"
-                download
+                href="/Ibrahim_Mohamed_Ibrahim_CV.pdf"
+                download="Ibrahim_Mohamed_Ibrahim_CV.pdf"
                 className="
                   group
 
@@ -1008,7 +1014,7 @@ const Navbar = () => {
 
               ${
                 isOpen
-                  ? 'max-h-[700px] opacity-100 pb-6'
+                  ? 'max-h-[850px] opacity-100 pb-6'
                   : 'max-h-0 opacity-0'
               }
             `}
@@ -1085,8 +1091,8 @@ const Navbar = () => {
               {/* Mobile CV */}
 
               <a
-                href="/Ahmed_Mohamed_CV (4).pdf"
-                download
+                href="/Ibrahim_Mohamed_Ibrahim_CV.pdf"
+                download="Ibrahim_Mohamed_Ibrahim_CV.pdf"
                 className="
                   mt-4
 

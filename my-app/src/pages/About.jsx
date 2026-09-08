@@ -19,9 +19,9 @@ const About = () => {
       const cards = cardsRef.current?.children;
       const tools = toolsRef.current?.children;
 
-      // -----------------------------------------
-      // Initial states
-      // -----------------------------------------
+      // =====================================================
+      // INITIAL STATES
+      // =====================================================
 
       gsap.set(labelRef.current, {
         opacity: 0,
@@ -59,9 +59,9 @@ const About = () => {
         transformOrigin: 'left center',
       });
 
-      // -----------------------------------------
-      // Main About entrance
-      // -----------------------------------------
+      // =====================================================
+      // MAIN ABOUT ENTRANCE
+      // =====================================================
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -146,9 +146,9 @@ const About = () => {
           '-=0.25'
         );
 
-      // -----------------------------------------
-      // Orbit animation
-      // -----------------------------------------
+      // =====================================================
+      // ORBIT ANIMATION
+      // =====================================================
 
       gsap.to('.solar-orbit', {
         rotation: 360,
@@ -157,9 +157,9 @@ const About = () => {
         ease: 'none',
       });
 
-      // -----------------------------------------
-      // Solar glow
-      // -----------------------------------------
+      // =====================================================
+      // SOLAR GLOW
+      // =====================================================
 
       gsap.to('.solar-glow', {
         scale: 1.15,
@@ -170,9 +170,9 @@ const About = () => {
         ease: 'sine.inOut',
       });
 
-      // -----------------------------------------
-      // Sun breathing
-      // -----------------------------------------
+      // =====================================================
+      // SUN BREATHING
+      // =====================================================
 
       gsap.to('.solar-core', {
         scale: 1.04,
@@ -181,7 +181,6 @@ const About = () => {
         yoyo: true,
         ease: 'sine.inOut',
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -193,20 +192,19 @@ const About = () => {
       ref={sectionRef}
       className="
         relative
+        mt-28
         overflow-hidden
         bg-[#0B0B09]
         py-28
         text-white
+        scroll-mt-24
         md:py-36
         lg:py-40
-        scroll-mt-24
-        mt-28
       "
     >
-
-      {/* =========================================
-          Background Atmosphere
-      ========================================= */}
+      {/* =====================================================
+          BACKGROUND ATMOSPHERE
+      ===================================================== */}
 
       <div
         className="
@@ -236,7 +234,9 @@ const About = () => {
         "
       />
 
-      {/* Vertical cinematic lines */}
+      {/* =====================================================
+          VERTICAL CINEMATIC LINES
+      ===================================================== */}
 
       <div
         className="
@@ -266,6 +266,9 @@ const About = () => {
         "
       />
 
+      {/* =====================================================
+          CONTAINER
+      ===================================================== */}
 
       <div
         className="
@@ -277,10 +280,9 @@ const About = () => {
           lg:px-16
         "
       >
-
-        {/* =========================================
-            Section Label
-        ========================================= */}
+        {/* ===================================================
+            SECTION LABEL
+        =================================================== */}
 
         <div
           ref={labelRef}
@@ -292,7 +294,6 @@ const About = () => {
             md:mb-20
           "
         >
-
           <span
             className="
               font-mono
@@ -301,7 +302,7 @@ const About = () => {
               text-amber-400
             "
           >
-            01
+            02
           </span>
 
           <span className="h-px w-14 bg-amber-400/50" />
@@ -327,15 +328,13 @@ const About = () => {
               sm:block
             "
           >
-            Solar Power Engineering
+            Renewable Energy Engineering
           </span>
-
         </div>
 
-
-        {/* =========================================
-            Main Content
-        ========================================= */}
+        {/* ===================================================
+            MAIN CONTENT
+        =================================================== */}
 
         <div
           className="
@@ -346,77 +345,75 @@ const About = () => {
             lg:gap-24
           "
         >
-
-          {/* =======================================
+          {/* =================================================
               LEFT CONTENT
-          ======================================= */}
+          ================================================= */}
 
           <div>
+            {/* =================================================
+                MAIN HEADLINE
+            ================================================= */}
 
             <h2
               ref={titleRef}
               className="
                 max-w-3xl
-                text-2xl
+                text-3xl
                 font-bold
                 leading-[0.98]
                 tracking-[-0.045em]
+                sm:text-4xl
                 md:text-6xl
                 lg:text-[4.5rem]
               "
             >
-
-              I don't just design
+              I engineer how
 
               <span className="block text-amber-400">
-                solar systems.
-              </span>
-
-              <span className="mt-3 block text-white/90">
-                I engineer how
-                <br className="hidden md:block" />
                 energy moves.
               </span>
-
             </h2>
 
-
-            {/* ---------------------------------------
-                Description
-            --------------------------------------- */}
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
 
             <div
               ref={textRef}
               className="
                 mt-9
-                max-w-xl
-                space-y-5
+                max-w-2xl
+                space-y-6
                 text-[15px]
                 leading-[1.85]
                 text-white/50
                 md:text-base
               "
             >
-
               <p>
-                I'm Ibrahim, a Solar Power Engineer focused
-                on transforming solar energy potential into
-                efficient, reliable and practical PV systems.
+                Renewable Energy Engineer with close to two years
+                of hands-on experience designing and documenting
+                photovoltaic systems across residential,
+                commercial, pumping, and utility-scale
+                applications.
               </p>
 
               <p>
-                My approach combines electrical engineering,
-                system design and performance analysis to
-                create solutions that are built for
-                real-world conditions.
+                My work combines{' '}
+                <span className="text-white/80">
+                  PV system design, electrical calculations,
+                  PVsyst simulation, CAD documentation,
+                  hybrid PV+BESS architecture, and
+                  technical-commercial analysis
+                </span>{' '}
+                to develop practical and cost-effective
+                energy solutions.
               </p>
-
             </div>
 
-
-            {/* ---------------------------------------
-                Engineering Focus
-            --------------------------------------- */}
+            {/* =================================================
+                ENGINEERING FOCUS
+            ================================================= */}
 
             <div
               ref={cardsRef}
@@ -428,8 +425,9 @@ const About = () => {
                 sm:grid-cols-3
               "
             >
-
-              {/* Card 01 */}
+              {/* =================================================
+                  CARD 01 — PV SYSTEM DESIGN
+              ================================================= */}
 
               <div
                 className="
@@ -442,9 +440,7 @@ const About = () => {
                   sm:pr-6
                 "
               >
-
                 <div className="flex items-center justify-between">
-
                   <span
                     className="
                       font-mono
@@ -468,29 +464,36 @@ const About = () => {
                   >
                     ↗
                   </span>
-
                 </div>
 
-                <h3 className="mt-5 text-sm font-semibold">
-                  Solar PV Design
+                <h3
+                  className="
+                    mt-5
+                    text-sm
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                  "
+                >
+                  PV System Design
                 </h3>
 
                 <p
                   className="
-                    mt-2
-                    max-w-[180px]
+                    mt-3
+                    max-w-[190px]
                     text-xs
                     leading-relaxed
                     text-white/30
                   "
                 >
-                  System sizing, configuration and optimization.
+                  On-grid · Off-grid · Pumping · Hybrid
                 </p>
-
               </div>
 
-
-              {/* Card 02 */}
+              {/* =================================================
+                  CARD 02 — HYBRID ENERGY SYSTEMS
+              ================================================= */}
 
               <div
                 className="
@@ -503,9 +506,7 @@ const About = () => {
                   sm:px-6
                 "
               >
-
                 <div className="flex items-center justify-between">
-
                   <span
                     className="
                       font-mono
@@ -529,29 +530,37 @@ const About = () => {
                   >
                     ↗
                   </span>
-
                 </div>
 
-                <h3 className="mt-5 text-sm font-semibold">
-                  Electrical Engineering
+                <h3
+                  className="
+                    mt-5
+                    text-sm
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                  "
+                >
+                  Hybrid Energy Systems
                 </h3>
 
                 <p
                   className="
-                    mt-2
-                    max-w-[180px]
+                    mt-3
+                    max-w-[190px]
                     text-xs
                     leading-relaxed
                     text-white/30
                   "
                 >
-                  Electrical analysis, protection and power systems.
+                  PV+BESS · AC Coupled · DC Coupled ·
+                  Microgrids
                 </p>
-
               </div>
 
-
-              {/* Card 03 */}
+              {/* =================================================
+                  CARD 03 — ENGINEERING + COMMERCIAL
+              ================================================= */}
 
               <div
                 className="
@@ -560,9 +569,7 @@ const About = () => {
                   sm:pl-6
                 "
               >
-
                 <div className="flex items-center justify-between">
-
                   <span
                     className="
                       font-mono
@@ -586,35 +593,38 @@ const About = () => {
                   >
                     ↗
                   </span>
-
                 </div>
 
-                <h3 className="mt-5 text-sm font-semibold">
-                  Performance
+                <h3
+                  className="
+                    mt-5
+                    text-sm
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                  "
+                >
+                  Engineering + Commercial
                 </h3>
 
                 <p
                   className="
-                    mt-2
-                    max-w-[180px]
+                    mt-3
+                    max-w-[190px]
                     text-xs
                     leading-relaxed
                     text-white/30
                   "
                 >
-                  Efficiency analysis and system optimization.
+                  Design · BOQ · ROI · Tendering
                 </p>
-
               </div>
-
             </div>
-
           </div>
 
-
-          {/* =======================================
-              RIGHT — YOUR ORIGINAL ORBIT
-          ======================================= */}
+          {/* =================================================
+              RIGHT — SOLAR ORBIT VISUAL
+          ================================================= */}
 
           <div
             ref={visualRef}
@@ -623,7 +633,6 @@ const About = () => {
               w-full
             "
           >
-
             <div
               className="
                 relative
@@ -637,10 +646,9 @@ const About = () => {
                 bg-[#151511]
               "
             >
-
-              {/* -----------------------------------
-                  Technical Grid
-              ----------------------------------- */}
+              {/* ===============================================
+                  TECHNICAL GRID
+              =============================================== */}
 
               <div
                 className="
@@ -652,10 +660,9 @@ const About = () => {
                 "
               />
 
-
-              {/* -----------------------------------
-                  Central Sun
-              ----------------------------------- */}
+              {/* ===============================================
+                  CENTRAL SUN GLOW
+              =============================================== */}
 
               <div
                 className="
@@ -663,17 +670,21 @@ const About = () => {
                   absolute
                   left-1/2
                   top-1/2
+                  h-32
+                  w-32
                   -translate-x-1/2
                   -translate-y-1/2
-                  w-32
-                  h-32
-                  md:w-40
-                  md:h-40
                   rounded-full
                   bg-amber-400/20
                   blur-2xl
+                  md:h-40
+                  md:w-40
                 "
               />
+
+              {/* ===============================================
+                  CENTRAL SUN
+              =============================================== */}
 
               <div
                 className="
@@ -681,22 +692,21 @@ const About = () => {
                   absolute
                   left-1/2
                   top-1/2
+                  h-20
+                  w-20
                   -translate-x-1/2
                   -translate-y-1/2
-                  w-20
-                  h-20
-                  md:w-24
-                  md:h-24
                   rounded-full
                   bg-amber-400
                   shadow-[0_0_80px_rgba(245,158,11,0.45)]
+                  md:h-24
+                  md:w-24
                 "
               />
 
-
-              {/* -----------------------------------
-                  Main Orbit
-              ----------------------------------- */}
+              {/* ===============================================
+                  MAIN ORBIT
+              =============================================== */}
 
               <div
                 className="
@@ -704,92 +714,167 @@ const About = () => {
                   absolute
                   left-1/2
                   top-1/2
+                  h-[65%]
+                  w-[65%]
                   -translate-x-1/2
                   -translate-y-1/2
-                  w-[65%]
-                  h-[65%]
                   rounded-full
                   border
                   border-amber-400/20
                 "
               >
-
                 <div
                   className="
                     absolute
                     -top-2
                     left-1/2
-                    -translate-x-1/2
-                    w-4
                     h-4
+                    w-4
+                    -translate-x-1/2
                     rounded-full
                     bg-amber-300
                     shadow-[0_0_20px_rgba(251,191,36,0.8)]
                   "
                 />
-
               </div>
 
-
-              {/* -----------------------------------
-                  Second Orbit
-              ----------------------------------- */}
+              {/* ===============================================
+                  SECOND ORBIT
+              =============================================== */}
 
               <div
                 className="
                   absolute
                   left-1/2
                   top-1/2
+                  h-[82%]
+                  w-[82%]
                   -translate-x-1/2
                   -translate-y-1/2
-                  w-[82%]
-                  h-[82%]
                   rounded-full
                   border
                   border-white/5
                 "
               />
 
-
-              {/* -----------------------------------
-                  Top Label
-              ----------------------------------- */}
+              {/* ===============================================
+                  TOP LABEL
+              =============================================== */}
 
               <div
                 className="
                   absolute
-                  top-7
                   left-7
+                  top-7
                   text-[10px]
                   uppercase
                   tracking-[0.25em]
                   text-white/30
                 "
               >
-                Solar Engineering
+                Energy Systems
               </div>
 
-
-              {/* Small index */}
+              {/* ===============================================
+                  TOP INDEX
+              =============================================== */}
 
               <div
                 className="
                   absolute
-                  top-7
                   right-7
+                  top-7
                   font-mono
                   text-[9px]
                   tracking-widest
                   text-white/20
                 "
               >
-                01 / 03
+                02 / 03
               </div>
 
+              {/* ===============================================
+                  LEFT TECHNICAL LABEL
+              =============================================== */}
 
-              {/* -----------------------------------
-                  Bottom Data
-              ----------------------------------- */}
+              <div
+                className="
+                  absolute
+                  left-7
+                  top-1/2
+                  hidden
+                  -translate-y-1/2
+                  flex-col
+                  gap-1
+                  md:flex
+                "
+              >
+                <span
+                  className="
+                    font-mono
+                    text-[8px]
+                    uppercase
+                    tracking-[0.2em]
+                    text-white/20
+                  "
+                >
+                  System
+                </span>
+
+                <span
+                  className="
+                    font-mono
+                    text-[10px]
+                    text-white/40
+                  "
+                >
+                  PV + BESS
+                </span>
+              </div>
+
+              {/* ===============================================
+                  RIGHT TECHNICAL LABEL
+              =============================================== */}
+
+              <div
+                className="
+                  absolute
+                  right-7
+                  top-1/2
+                  hidden
+                  -translate-y-1/2
+                  flex-col
+                  items-end
+                  gap-1
+                  md:flex
+                "
+              >
+                <span
+                  className="
+                    font-mono
+                    text-[8px]
+                    uppercase
+                    tracking-[0.2em]
+                    text-white/20
+                  "
+                >
+                  Architecture
+                </span>
+
+                <span
+                  className="
+                    font-mono
+                    text-[10px]
+                    text-amber-400/60
+                  "
+                >
+                  HYBRID
+                </span>
+              </div>
+
+              {/* ===============================================
+                  BOTTOM DATA
+              =============================================== */}
 
               <div
                 className="
@@ -802,17 +887,15 @@ const About = () => {
                   justify-between
                 "
               >
-
                 {/* Energy */}
 
                 <div>
-
                   <p
                     className="
                       text-xs
-                      text-white/30
                       uppercase
                       tracking-widest
+                      text-white/30
                     "
                   >
                     Energy
@@ -826,22 +909,19 @@ const About = () => {
                       text-white
                     "
                   >
-                    Clean
+                    Engineered
                   </p>
-
                 </div>
-
 
                 {/* Focus */}
 
                 <div className="text-right">
-
                   <p
                     className="
                       text-xs
-                      text-white/30
                       uppercase
                       tracking-widest
+                      text-white/30
                     "
                   >
                     Focus
@@ -855,19 +935,15 @@ const About = () => {
                       text-amber-400
                     "
                   >
-                    PV Systems
+                    PV + BESS
                   </p>
-
                 </div>
-
               </div>
-
             </div>
 
-
-            {/* -----------------------------------
-                Visual Caption
-            ----------------------------------- */}
+            {/* ===============================================
+                VISUAL CAPTION
+            =============================================== */}
 
             <div
               className="
@@ -880,7 +956,6 @@ const About = () => {
                 px-1
               "
             >
-
               <span
                 className="
                   font-mono
@@ -890,7 +965,7 @@ const About = () => {
                   text-white/20
                 "
               >
-                From sunlight to performance
+                From sunlight to engineered systems
               </span>
 
               <span
@@ -901,19 +976,15 @@ const About = () => {
                   text-amber-400/40
                 "
               >
-                SOL / PV / 001
+                SOL / ENG / 002
               </span>
-
             </div>
-
           </div>
-
         </div>
 
-
-        {/* =========================================
-            Divider
-        ========================================= */}
+        {/* =====================================================
+            DIVIDER
+        ===================================================== */}
 
         <div
           ref={dividerRef}
@@ -921,6 +992,7 @@ const About = () => {
             mt-20
             h-px
             w-full
+            origin-left
             bg-gradient-to-r
             from-amber-400/40
             via-white/10
@@ -929,10 +1001,9 @@ const About = () => {
           "
         />
 
-
-        {/* =========================================
-            Technical Environment
-        ========================================= */}
+        {/* =====================================================
+            TECHNICAL ENVIRONMENT
+        ===================================================== */}
 
         <div
           ref={toolsRef}
@@ -945,7 +1016,6 @@ const About = () => {
             gap-y-4
           "
         >
-
           <span
             className="
               mr-2
@@ -993,11 +1063,8 @@ const About = () => {
           <span className="font-mono text-xs text-white/40">
             Excel
           </span>
-
         </div>
-
       </div>
-
     </section>
   );
 };
