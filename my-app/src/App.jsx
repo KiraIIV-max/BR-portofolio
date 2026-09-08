@@ -13,16 +13,18 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About/>} />
-        <Route path="/projects" element={<Projects/>} />
-        <Route path="/engineering-process" element={<EngineeringProcess/>} />
-        <Route path="/experience" element={<Experience/>} />
-        <Route path="/skills" element={<Skills/>} />
-        <Route path="/achievements" element={<Achievements/>} />
-        <Route path="/contact" element={<Contact/>} />
-      </Routes>
+      <main id="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/engineering-process" element={<EngineeringProcess />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
       <Footer />
     </BrowserRouter>
   );

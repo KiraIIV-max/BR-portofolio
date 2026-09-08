@@ -38,6 +38,7 @@ const Projects = () => {
         'Concrete / pile layouts',
         'Technical proposals',
       ],
+      evidence: 'Array and string sizing, inverter and MPPT allocation, AC/DC design, layouts and technical proposals.',
       type: 'pv',
     },
 
@@ -60,6 +61,7 @@ const Projects = () => {
         'Load management',
         'Energy flow analysis',
       ],
+      evidence: 'AC/DC topology comparison, storage sizing logic, PCS selection and load-management architecture.',
       type: 'bess',
     },
 
@@ -82,6 +84,7 @@ const Projects = () => {
         'Simulation',
         'Technical studies',
       ],
+      evidence: 'Load assessment, pump/inverter selection, cable sizing and simulation for water-flow requirements.',
       type: 'pumping',
     },
 
@@ -106,6 +109,7 @@ const Projects = () => {
         'Pumping',
         'System integration',
       ],
+      evidence: 'Team-led integration of PV power, IoT monitoring, embedded control, motors, valves and water circulation.',
       achievement: 'National Competition Recognition',
       type: 'cleaner',
     },
@@ -130,6 +134,7 @@ const Projects = () => {
         'Performance evaluation',
         'Iterative optimization',
       ],
+      evidence: 'Thermal and environmental measurement, airflow control, performance evaluation and iterative optimization.',
       type: 'thermal',
     },
   ];
@@ -1311,10 +1316,11 @@ const Projects = () => {
                   md:text-base
                 "
               >
-                Real engineering work across photovoltaic
-                systems, hybrid energy storage, solar pumping,
-                intelligent automation and solar thermal
-                applications.
+                Selected engineering scopes across PV system design,
+                hybrid PV+BESS, solar pumping and applied energy
+                research. Each entry states the work owned, the
+                deliverables produced and the technical evidence
+                available to discuss in an interview.
               </p>
             </div>
           </div>
@@ -1540,6 +1546,15 @@ const Projects = () => {
                     >
                       {project.description}
                     </p>
+
+                    <div className="mt-6 rounded-xl border border-amber-400/15 bg-amber-400/[0.04] p-4">
+                      <p className="text-[9px] uppercase tracking-[0.25em] text-amber-300/80">
+                        Technical evidence
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-white/70">
+                        {project.evidence}
+                      </p>
+                    </div>
                   </div>
 
                   {/* =========================================
