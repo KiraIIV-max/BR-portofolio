@@ -572,7 +572,7 @@ const Navbar = () => {
           y: moveY,
           opacity: 1,
           scale: targetScale,
-          duration: 1.15,
+          duration: 0.7,
           ease: 'power4.out',
         });
 
@@ -583,7 +583,7 @@ const Navbar = () => {
         tl.to(
           {},
           {
-            duration: 0.9,
+            duration: 0.25,
           }
         );
 
@@ -595,7 +595,7 @@ const Navbar = () => {
           x: 0,
           y: 0,
           scale: 1,
-          duration: 0.6,
+          duration: 0.4,
           ease: 'power4.inOut',
         });
 
@@ -611,7 +611,7 @@ const Navbar = () => {
               'blur(0px)',
             WebkitBackdropFilter:
               'blur(0px)',
-            duration: 1,
+            duration: 0.6,
             ease: 'power2.out',
           },
           '-=0.85'
@@ -630,8 +630,8 @@ const Navbar = () => {
           ],
           {
             opacity: 1,
-            duration: 0.4,
-            stagger: 0.05,
+            duration: 0.3,
+            stagger: 0.03,
             ease: 'power3.out',
           },
           '-=0.35'
@@ -668,11 +668,17 @@ const Navbar = () => {
   // they were fully interactive despite being invisible.
   const introHiddenProps =
     isHome && !introFinished
-      ? { inert: '', 'aria-hidden': true }
+      ? { inert: true, 'aria-hidden': true }
       : {};
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-amber-400 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
+      >
+        Skip to content
+      </a>
       {/* =====================================================
           INTRO OVERLAY
       ===================================================== */}

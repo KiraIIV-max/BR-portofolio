@@ -761,7 +761,6 @@ const Home = () => {
                     inline-flex
                     h-full
                     w-full
-                    animate-ping
                     rounded-full
                     bg-amber-400
                     opacity-50
@@ -791,7 +790,7 @@ const Home = () => {
                   text-amber-300
                 "
               >
-                Renewable Energy Engineer
+                PV DESIGN ENGINEER · HYBRID PV+BESS
               </span>
 
             </div>
@@ -831,7 +830,7 @@ const Home = () => {
                     text-white
                   "
                 >
-                  Engineering the
+                  Designing
                 </div>
 
               </div>
@@ -847,7 +846,7 @@ const Home = () => {
                     text-white/40
                   "
                 >
-                  Power
+                  PV & BESS
                 </div>
 
               </div>
@@ -863,7 +862,7 @@ const Home = () => {
                     text-white
                   "
                 >
-                  of Sunlight
+                  systems that perform
                   <span className="text-amber-400">
                     .
                   </span>
@@ -992,16 +991,15 @@ const Home = () => {
                 will-change-transform
               "
             >
-              Renewable Energy Engineer with close to two years
-              of hands-on experience designing and documenting
-              photovoltaic systems — from residential rooftops
-              to utility-scale plants.
+              Renewable Energy Engineer focused on PV system design,
+              hybrid PV+BESS architecture and electrical documentation
+              across project scopes from 17 kW to 2.14 MW.
 
               <span className="text-white/80">
                 {' '}
-                Focused on PV design, hybrid PV+BESS,
-                electrical engineering, simulation,
-                technical documentation and project development.
+                I turn site data into sized systems, simulations,
+                drawings and technical decisions that can move toward
+                procurement and execution.
               </span>
             </p>
 
@@ -1286,10 +1284,11 @@ const Home = () => {
                     md:text-2xl
                   "
                 >
-                  ~2
+                  17 kW
                   <span className="text-amber-400">
-                    yrs
+                    –
                   </span>
+                  2.14 MW
                 </p>
 
                 <p
@@ -1305,7 +1304,7 @@ const Home = () => {
                     sm:text-[9px]
                   "
                 >
-                  Hands-on Experience
+                  PV design scope
                 </p>
 
               </div>
@@ -1360,11 +1359,11 @@ const Home = () => {
                     md:text-2xl
                   "
                 >
-                  AC
+                  PV
                   <span className="text-amber-400">
-                    /
+                    +
                   </span>
-                  DC
+                  BESS
                 </p>
 
                 <p
@@ -1380,7 +1379,7 @@ const Home = () => {
                     sm:text-[9px]
                   "
                 >
-                  Coupled PV+BESS
+                  Hybrid architectures
                 </p>
 
               </div>
@@ -1435,11 +1434,11 @@ const Home = () => {
                     md:text-2xl
                   "
                 >
-                  PV
+                  PVsyst
                   <span className="text-amber-400">
                     +
                   </span>
-                  BESS
+                  CAD
                 </p>
 
                 <p
@@ -1455,7 +1454,7 @@ const Home = () => {
                     sm:text-[9px]
                   "
                 >
-                  Energy Systems
+                  Design documentation
                 </p>
 
               </div>
@@ -1517,6 +1516,65 @@ const Home = () => {
 
         </div>
 
+      </section>
+
+      <section
+        aria-labelledby="proof-heading"
+        className="border-y border-white/10 bg-[#10100d] py-14 text-white md:py-20"
+      >
+        <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber-400">
+                Engineering proof
+              </p>
+              <h2
+                id="proof-heading"
+                className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-5xl"
+              >
+                From requirements to reviewable deliverables.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-7 text-white/60 md:text-base">
+              The work behind the visuals is the point: sizing, topology
+              decisions, simulation, electrical checks, drawings and
+              technical-commercial coordination. Project data is shown at a
+              representative level where client confidentiality applies.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-3">
+            {[
+              {
+                label: 'Design scope',
+                value: 'PV + hybrid storage',
+                detail: 'On-grid, off-grid, pumping and AC/DC-coupled systems.',
+              },
+              {
+                label: 'Core deliverables',
+                value: 'Sized systems',
+                detail: 'String layouts, SLDs, cable routes, BOQs and proposals.',
+              },
+              {
+                label: 'Validation',
+                value: 'Simulation + checks',
+                detail: 'PVsyst yield, losses, shading and electrical verification.',
+              },
+            ].map((item) => (
+              <div key={item.label} className="bg-[#10100d] p-6 md:p-8">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                  {item.label}
+                </p>
+                <p className="mt-4 text-xl font-semibold text-amber-300">
+                  {item.value}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-white/55">
+                  {item.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* =====================================================

@@ -391,11 +391,10 @@ const About = () => {
               "
             >
               <p>
-                Renewable Energy Engineer with close to two years
-                of hands-on experience designing and documenting
-                photovoltaic systems across residential,
-                commercial, pumping, and utility-scale
-                applications.
+                Renewable Energy Engineer focused on PV design,
+                hybrid PV+BESS architecture and electrical
+                documentation across residential, commercial,
+                pumping and utility-scale applications.
               </p>
 
               <p>
@@ -406,8 +405,9 @@ const About = () => {
                   hybrid PV+BESS architecture, and
                   technical-commercial analysis
                 </span>{' '}
-                to develop practical and cost-effective
-                energy solutions.
+                to turn requirements into reviewable, practical
+                energy solutions that can move toward procurement
+                and execution.
               </p>
             </div>
 
