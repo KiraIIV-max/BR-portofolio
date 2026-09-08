@@ -8,6 +8,22 @@ import React, {
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
+// =========================================================
+// SESSION KEY
+//
+// Shared with Home.jsx, which already reads this key as a
+// fallback for cases where its listener attaches after the
+// intro already completed. Previously nothing ever WROTE this
+// key, so that fallback was dead code and the intro replayed
+// in full on every visit to Home. It's now written the moment
+// the intro finishes (or is skipped), so:
+//   - Home's existing fallback actually works.
+//   - The full ~3s intro only plays once per browser session,
+//     not on every mount/remount of the page.
+// =========================================================
+
+const INTRO_SESSION_KEY = 'navbarIntroComplete';
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -326,209 +342,334 @@ const Navbar = () => {
       return;
     }
 
-    const logo =
-      logoNameRef.current;
-
-    const overlay =
-      introOverlayRef.current;
+    const logo = logoNameRef.current;
+    const overlay = introOverlayRef.current;
 
     if (!logo || !overlay) return;
 
-    const ctx = gsap.context(() => {
-      // -----------------------------------------------------
-      // Current logo position
-      // -----------------------------------------------------
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
-      const rect =
-        logo.getBoundingClientRect();
+    const alreadyPlayed =
+      sessionStorage.getItem(INTRO_SESSION_KEY) === 'true';
 
-      const logoCenterX =
-        rect.left +
-        rect.width / 2;
+    // -------------------------------------------------------
+    // Marks the intro complete, persists it for the rest of
+    // the session, and tells Hero it can start its own
+    // animation.
+    // -------------------------------------------------------
 
-      const logoCenterY =
-        rect.top +
-        rect.height / 2;
+    const finishIntro = () => {
+      setIntroFinished(true);
 
-      // -----------------------------------------------------
-      // Screen center
-      // -----------------------------------------------------
+      sessionStorage.setItem(INTRO_SESSION_KEY, 'true');
 
-      const viewportCenterX =
-        window.innerWidth / 2;
-
-      const viewportCenterY =
-        window.innerHeight / 2;
-
-      // -----------------------------------------------------
-      // Distance
-      // -----------------------------------------------------
-
-      const moveX =
-        viewportCenterX -
-        logoCenterX;
-
-      const moveY =
-        viewportCenterY -
-        logoCenterY;
-
-      // -----------------------------------------------------
-      // Target scale
-      // -----------------------------------------------------
-
-      const targetScale =
-        Math.min(
-          (window.innerWidth * 0.48) /
-            rect.width,
-          6
+      requestAnimationFrame(() => {
+        window.dispatchEvent(
+          new CustomEvent('navbarIntroComplete')
         );
-
-      // -----------------------------------------------------
-      // Initial logo
-      // -----------------------------------------------------
-
-      gsap.set(logo, {
-        x: moveX,
-        y: moveY + 180,
-        scale:
-          targetScale * 0.88,
-        opacity: 0,
-        transformOrigin:
-          'center center',
       });
+    };
 
-      // -----------------------------------------------------
-      // Hide navbar elements
-      // -----------------------------------------------------
+    let cancelled = false;
+    let ctx;
 
-      gsap.set(
-        [
-          logoIconRef.current,
-          logoSubtitleRef.current,
-          navLinksRef.current,
-          cvRef.current,
-        ],
-        {
+    // =========================================================
+    // SKIP PATH — reduced motion, or intro already played
+    // this session.
+    //
+    // FIX (#2): the full cinematic logo intro previously ran
+    // unconditionally, even for users with
+    // prefers-reduced-motion enabled. It now gets a fast,
+    // simple fade instead (or is skipped outright on repeat
+    // visits within the same session).
+    // =========================================================
+
+    if (alreadyPlayed || reduceMotion) {
+      ctx = gsap.context(() => {
+        gsap.set(overlay, {
           opacity: 0,
-        }
-      );
-
-      // -----------------------------------------------------
-      // Blur background
-      // -----------------------------------------------------
-
-      gsap.set(overlay, {
-        opacity: 1,
-        backdropFilter:
-          'blur(14px)',
-        WebkitBackdropFilter:
-          'blur(14px)',
-      });
-
-      // -----------------------------------------------------
-      // Timeline
-      // -----------------------------------------------------
-
-      const tl =
-        gsap.timeline({
-          defaults: {
-            ease: 'power3.out',
-          },
-
-          onComplete: () => {
-            setIntroFinished(true);
-
-            // Tell Hero that Navbar animation is finished
-            requestAnimationFrame(() => {
-              window.dispatchEvent(
-                new CustomEvent(
-                  'navbarIntroComplete'
-                )
-              );
-            });
-          },
+          backdropFilter: 'blur(0px)',
+          WebkitBackdropFilter: 'blur(0px)',
         });
 
-      // =====================================================
-      // 1. LOGO RISES
-      // =====================================================
-
-      tl.to(logo, {
-        y: moveY,
-        opacity: 1,
-        scale: targetScale,
-        duration: 1.15,
-        ease: 'power4.out',
-      });
-
-      // =====================================================
-      // 2. HOLD
-      // =====================================================
-
-      tl.to(
-        {},
-        {
-          duration: 0.9,
-        }
-      );
-
-      // =====================================================
-      // 3. RETURN TO NAVBAR
-      // =====================================================
-
-      tl.to(logo, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: 'power4.inOut',
-      });
-
-      // =====================================================
-      // 4. REMOVE BLUR
-      // =====================================================
-
-      tl.to(
-        overlay,
-        {
-          opacity: 0,
-          backdropFilter:
-            'blur(0px)',
-          WebkitBackdropFilter:
-            'blur(0px)',
-          duration: 1,
-          ease: 'power2.out',
-        },
-        '-=0.85'
-      );
-
-      // =====================================================
-      // 5. REVEAL NAVBAR
-      // =====================================================
-
-      tl.to(
-        [
-          logoIconRef.current,
-          logoSubtitleRef.current,
-          navLinksRef.current,
-          cvRef.current,
-        ],
-        {
+        gsap.set(logo, {
+          x: 0,
+          y: 0,
+          scale: 1,
           opacity: 1,
-          duration: 0.4,
-          stagger: 0.05,
-          ease: 'power3.out',
-        },
-        '-=0.35'
-      );
-    }, navbarRef);
+        });
 
-    return () => ctx.revert();
+        gsap.set(
+          [
+            logoIconRef.current,
+            logoSubtitleRef.current,
+            navLinksRef.current,
+            cvRef.current,
+          ],
+          {
+            opacity: 1,
+          }
+        );
+
+        if (reduceMotion && !alreadyPlayed) {
+          // First visit, but motion is reduced: a quick plain
+          // fade-in instead of the full flying-logo sequence.
+          gsap.set(navbarRef.current, { opacity: 0 });
+
+          gsap.to(navbarRef.current, {
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power1.out',
+            onComplete: finishIntro,
+          });
+        } else {
+          finishIntro();
+        }
+      }, navbarRef);
+
+      return () => {
+        cancelled = true;
+        if (ctx) ctx.revert();
+      };
+    }
+
+    // =========================================================
+    // FULL INTRO
+    //
+    // FIX (#6): previously measured the logo's
+    // getBoundingClientRect() immediately, before confirming
+    // the custom "Pesttiva" font had loaded. If the font
+    // finished loading mid-animation, the fallback font's
+    // metrics (used to compute moveX/moveY/targetScale) would
+    // be wrong, causing a visible resize/jump as the real font
+    // swapped in. We now wait for document.fonts.ready (capped
+    // at 300ms so a slow/unsupported font-loading API can never
+    // block the intro indefinitely) before measuring.
+    // =========================================================
+
+    const runIntro = () => {
+      if (cancelled || !logoNameRef.current) return;
+
+      ctx = gsap.context(() => {
+        // -----------------------------------------------------
+        // Current logo position
+        // -----------------------------------------------------
+
+        const rect =
+          logo.getBoundingClientRect();
+
+        const logoCenterX =
+          rect.left +
+          rect.width / 2;
+
+        const logoCenterY =
+          rect.top +
+          rect.height / 2;
+
+        // -----------------------------------------------------
+        // Screen center
+        // -----------------------------------------------------
+
+        const viewportCenterX =
+          window.innerWidth / 2;
+
+        const viewportCenterY =
+          window.innerHeight / 2;
+
+        // -----------------------------------------------------
+        // Distance
+        // -----------------------------------------------------
+
+        const moveX =
+          viewportCenterX -
+          logoCenterX;
+
+        const moveY =
+          viewportCenterY -
+          logoCenterY;
+
+        // -----------------------------------------------------
+        // Target scale
+        // -----------------------------------------------------
+
+        const targetScale =
+          Math.min(
+            (window.innerWidth * 0.48) /
+              rect.width,
+            6
+          );
+
+        // -----------------------------------------------------
+        // Initial logo
+        // -----------------------------------------------------
+
+        gsap.set(logo, {
+          x: moveX,
+          y: moveY + 180,
+          scale:
+            targetScale * 0.88,
+          opacity: 0,
+          transformOrigin:
+            'center center',
+          willChange: 'transform, opacity',
+        });
+
+        // -----------------------------------------------------
+        // Hide navbar elements
+        // -----------------------------------------------------
+
+        gsap.set(
+          [
+            logoIconRef.current,
+            logoSubtitleRef.current,
+            navLinksRef.current,
+            cvRef.current,
+          ],
+          {
+            opacity: 0,
+          }
+        );
+
+        // -----------------------------------------------------
+        // Blur background
+        // -----------------------------------------------------
+
+        gsap.set(overlay, {
+          opacity: 1,
+          backdropFilter:
+            'blur(14px)',
+          WebkitBackdropFilter:
+            'blur(14px)',
+        });
+
+        // -----------------------------------------------------
+        // Timeline
+        // -----------------------------------------------------
+
+        const tl =
+          gsap.timeline({
+            defaults: {
+              ease: 'power3.out',
+            },
+
+            onComplete: () => {
+              // Drop the will-change hint once the animation
+              // settles — no need to keep the browser primed
+              // for a transform that will no longer change.
+              gsap.set(logo, { willChange: 'auto' });
+
+              finishIntro();
+            },
+          });
+
+        // =====================================================
+        // 1. LOGO RISES
+        // =====================================================
+
+        tl.to(logo, {
+          y: moveY,
+          opacity: 1,
+          scale: targetScale,
+          duration: 1.15,
+          ease: 'power4.out',
+        });
+
+        // =====================================================
+        // 2. HOLD
+        // =====================================================
+
+        tl.to(
+          {},
+          {
+            duration: 0.9,
+          }
+        );
+
+        // =====================================================
+        // 3. RETURN TO NAVBAR
+        // =====================================================
+
+        tl.to(logo, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: 'power4.inOut',
+        });
+
+        // =====================================================
+        // 4. REMOVE BLUR
+        // =====================================================
+
+        tl.to(
+          overlay,
+          {
+            opacity: 0,
+            backdropFilter:
+              'blur(0px)',
+            WebkitBackdropFilter:
+              'blur(0px)',
+            duration: 1,
+            ease: 'power2.out',
+          },
+          '-=0.85'
+        );
+
+        // =====================================================
+        // 5. REVEAL NAVBAR
+        // =====================================================
+
+        tl.to(
+          [
+            logoIconRef.current,
+            logoSubtitleRef.current,
+            navLinksRef.current,
+            cvRef.current,
+          ],
+          {
+            opacity: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: 'power3.out',
+          },
+          '-=0.35'
+        );
+      }, navbarRef);
+    };
+
+    if (
+      typeof document !== 'undefined' &&
+      document.fonts &&
+      document.fonts.ready
+    ) {
+      Promise.race([
+        document.fonts.ready,
+        new Promise((resolve) => setTimeout(resolve, 300)),
+      ]).then(runIntro);
+    } else {
+      runIntro();
+    }
+
+    return () => {
+      cancelled = true;
+      if (ctx) ctx.revert();
+    };
   }, [isHome]);
 
   // =========================================================
   // RENDER
   // =========================================================
+
+  // Whether the desktop nav links / CV button are still
+  // invisible mid-intro. Used to keep them out of the tab
+  // order and unclickable while opacity is 0 — previously
+  // they were fully interactive despite being invisible.
+  const introHiddenProps =
+    isHome && !introFinished
+      ? { inert: '', 'aria-hidden': true }
+      : {};
 
   return (
     <>
@@ -768,6 +909,7 @@ const Navbar = () => {
 
             <div
               ref={navLinksRef}
+              {...introHiddenProps}
               className="
                 hidden
                 lg:flex
@@ -861,6 +1003,7 @@ const Navbar = () => {
 
             <div
               ref={cvRef}
+              {...introHiddenProps}
               className="
                 hidden
                 lg:flex

@@ -58,6 +58,44 @@ const Home = () => {
   const [heroReady, setHeroReady] = useState(false);
 
   // =========================================================
+  // BACKGROUND — IMMEDIATE INITIAL STATE
+  //
+  // FIX: This used to live inside the `heroReady`-gated effect
+  // below, which meant the background image had NO scale/blur
+  // applied at all for the ~3s the Navbar intro was playing
+  // (logo rise 1.15s + hold 0.9s + return 0.6s). It sat there
+  // sharp and un-scaled the whole time.
+  //
+  // The moment `heroReady` flipped true, gsap.set() would then
+  // SNAP the image straight to scale(1.06) blur(4px)
+  // brightness(0.78) before animating it back down — a visible
+  // jump-cut right as the Navbar finished, which is the "ugly
+  // late scale" effect.
+  //
+  // Setting it here, on mount, means the image is already in
+  // its blurred/scaled state from the very first frame — hidden
+  // under the Navbar's own heavier overlay blur (14px) the whole
+  // time it's visible — so there is nothing to snap. By the time
+  // heroReady flips, it just smoothly animates from an already-
+  // blurred state into focus instead of popping into one.
+  // =========================================================
+
+  useLayoutEffect(() => {
+    if (!heroImageRef.current) return;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    gsap.set(heroImageRef.current, {
+      scale: reduceMotion ? 1.03 : 1.06,
+      filter: reduceMotion
+        ? 'blur(0px) brightness(1)'
+        : 'blur(4px) brightness(0.78)',
+    });
+  }, []);
+
+  // =========================================================
   // NAVBAR → HERO SYNCHRONIZATION
   // =========================================================
 
@@ -146,18 +184,14 @@ const Home = () => {
 
       // =======================================================
       // INITIAL STATES
+      //
+      // NOTE: the background image's initial scale/blur is now
+      // set once, immediately on mount, in the effect above —
+      // NOT here. It is intentionally not re-set in this block
+      // so there is only one source of truth for that starting
+      // state and no chance of it being re-applied (and briefly
+      // flashing) right as this timeline builds.
       // =======================================================
-
-      // -------------------------------------------------------
-      // Background
-      // -------------------------------------------------------
-
-      gsap.set(heroImageRef.current, {
-        scale: reduceMotion ? 1.03 : 1.08,
-        filter: reduceMotion
-          ? 'blur(0px) brightness(1)'
-          : 'blur(4px) brightness(0.78)',
-      });
 
       // -------------------------------------------------------
       // Badge
@@ -247,6 +281,16 @@ const Home = () => {
 
       // =======================================================
       // 0.00 — BACKGROUND
+      //
+      // SYNC FIX: duration and ease now match the Navbar's own
+      // overlay blur-removal tween exactly (duration: 1,
+      // ease: 'power2.out' — see Navbar.jsx step 4, "REMOVE
+      // BLUR"). The background image starts this tween already
+      // blurred/scaled (set on mount, above) instead of snapping
+      // into that state here, so the two blur-clearing motions
+      // — the Navbar's overlay and the Hero's own background —
+      // read as one continuous, synchronized reveal rather than
+      // two separate, staggered effects.
       // =======================================================
 
       if (reduceMotion) {
@@ -264,8 +308,8 @@ const Home = () => {
         tl.to(
           heroImageRef.current,
           {
-            duration: 1.8,
-            scale: 1.03,
+            duration: 1,
+            scale: 1.04,
             filter:
               'blur(0px) brightness(1)',
             ease: 'power2.out',
