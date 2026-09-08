@@ -635,6 +635,7 @@ const About = () => {
           >
             <div
               className="
+                group
                 relative
                 mx-auto
                 aspect-square
@@ -644,8 +645,35 @@ const About = () => {
                 border
                 border-white/10
                 bg-[#151511]
+                transition-all
+                duration-500
+                ease-out
+                hover:-translate-y-1
+                hover:border-amber-400/45
+                hover:shadow-[0_24px_70px_rgba(245,158,11,0.16)]
               "
             >
+              <img
+                src="/image.png"
+                alt="Ibrahim, Renewable Energy Engineer"
+                className="absolute inset-0 z-20 h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <div className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-t from-[#0B0B09]/95 via-transparent to-black/10 transition-opacity duration-500 group-hover:from-[#0B0B09]/85" />
+              <div className="pointer-events-none absolute inset-0 z-30 border border-transparent transition-colors duration-500 group-hover:border-amber-300/25" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex translate-y-1 items-end justify-between p-7 opacity-90 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-white/60">
+                    Ibrahim
+                  </p>
+                  <p className="mt-1 text-xl font-semibold text-white">
+                    Renewable Energy Engineer
+                  </p>
+                </div>
+                <p className="text-right text-sm font-medium text-amber-300">
+                  PV + BESS
+                </p>
+              </div>
+
               {/* ===============================================
                   TECHNICAL GRID
               =============================================== */}
